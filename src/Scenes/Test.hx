@@ -69,7 +69,12 @@ class Test extends Scene
         if(HXP.elapsed > 0){
             space.step(HXP.elapsed);
         }
+        handleClickingAndDraggingCircles();
+        super.update();
+    }
 
+    public function handleClickingAndDraggingCircles()
+    {
         if(Input.mousePressed){
             var collision = collidePoint("circle", Input.mouseX, Input.mouseY);
             if(collision != null){
@@ -89,8 +94,6 @@ class Test extends Scene
         if(Input.mouseReleased){
             dragging = null;
         }
-
-        super.update();
     }
  
 }
