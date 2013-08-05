@@ -19,7 +19,7 @@ class Circle extends PhysicalBody
         radius = r;
         width = r*2;
         height = r*2;
-        
+
         body = new Body(); // Implicit BodyType.DYNAMIC
         body.shapes.add(new nape.shape.Circle(radius));
         body.position.setxy(x, y);
@@ -29,6 +29,8 @@ class Circle extends PhysicalBody
 
         image = Image.createCircle(radius);
         graphic = image;
+
+        type = "circle";
     }
 
     public override function update(){
@@ -36,5 +38,10 @@ class Circle extends PhysicalBody
     	x = body.position.x - radius;
     	y = body.position.y - radius;
     	//image.angle = body.rotation; //Screws up spacing around circle
+    }
+
+    public function setXY(x:Int, y:Int){
+    	body.position.x = x;
+    	body.position.y = y;
     }
 }

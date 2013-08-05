@@ -4,6 +4,7 @@ import com.haxepunk.Entity;
 import com.haxepunk.Scene;
 import com.haxepunk.graphics.Image;
 import com.haxepunk.HXP;
+import com.haxepunk.utils.Input;
 
 import flash.display.Sprite;
 import flash.events.Event;
@@ -25,6 +26,7 @@ class Test extends Scene
     private var space:Space;
     private var floor:Entity;
     private var floorBody:Body;
+    private var dragging:entities.Circle;
 
     public function new()
     {
@@ -67,6 +69,27 @@ class Test extends Scene
         if(HXP.elapsed > 0){
             space.step(HXP.elapsed);
         }
+
+        if(Input.mousePressed){
+            var collision = collidePoint("circle", Input.mouseX, Input.mouseY);
+            if(collision != null){
+                var circle = cast(collision, entities.Circle);
+                dragging = circle;
+            }else{
+                var circle = new entities.Circle(Math.floor(Input.mouseX), Math.floor(Input.mouseY), Math.ceil(15*HXP.random), Math.ceil(5*HXP.random));
+                addObjectToSpace(circle);
+                dragging = circle;
+            }
+        }
+
+        if(dragging != null){
+            dragging.setXY(Input.mouseX, Input.mouseY);
+        }
+
+        if(Input.mouseReleased){
+            dragging = null;
+        }
+
         super.update();
     }
  
